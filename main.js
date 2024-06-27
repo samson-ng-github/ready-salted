@@ -3,6 +3,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import * as TWEEN from '@tweenjs/tween.js';
 import Model from './Model.js';
 
+let isKeyEnabled = true;
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
   75,
@@ -46,59 +47,84 @@ function animate(t) {
   hand.antiRotate();
 }
 
+const time = 1000;
 document.onkeydown = (e) => {
-  if (e.keyCode === 38) {
+  if (isKeyEnabled && e.keyCode === 38 && crisp.z > -2) {
     const tween = new TWEEN.Tween({ z: crisp.z })
       .to(
         {
           z: crisp.z - 2,
         },
-        500
+        time
       )
+      .onStart(() => {
+        isKeyEnabled = false;
+      })
       .onUpdate((coords) => {
-        crisp.moveZ(coords.z);
+        crisp.z = coords.z;
+      })
+      .onComplete(() => {
+        isKeyEnabled = true;
       });
     tween.start();
   }
 
-  if (e.keyCode === 40) {
+  if (isKeyEnabled && e.keyCode === 40 && crisp.z < 2) {
     const tween = new TWEEN.Tween({ z: crisp.z })
       .to(
         {
           z: crisp.z + 2,
         },
-        500
+        time
       )
+      .onStart(() => {
+        isKeyEnabled = false;
+      })
       .onUpdate((coords) => {
-        crisp.moveZ(coords.z);
+        crisp.z = coords.z;
+      })
+      .onComplete(() => {
+        isKeyEnabled = true;
       });
     tween.start();
   }
 
-  if (e.keyCode === 37) {
+  if (isKeyEnabled && e.keyCode === 37 && crisp.x > -2) {
     const tween = new TWEEN.Tween({ x: crisp.x })
       .to(
         {
           x: crisp.x - 2,
         },
-        500
+        time
       )
+      .onStart(() => {
+        isKeyEnabled = false;
+      })
       .onUpdate((coords) => {
-        crisp.moveX(coords.x);
+        crisp.x = coords.x;
+      })
+      .onComplete(() => {
+        isKeyEnabled = true;
       });
     tween.start();
   }
 
-  if (e.keyCode === 39) {
+  if (isKeyEnabled && e.keyCode === 39 && crisp.x < 2) {
     const tween = new TWEEN.Tween({ x: crisp.x })
       .to(
         {
           x: crisp.x + 2,
         },
-        500
+        time
       )
+      .onStart(() => {
+        isKeyEnabled = false;
+      })
       .onUpdate((coords) => {
-        crisp.moveX(coords.x);
+        crisp.x = coords.x;
+      })
+      .onComplete(() => {
+        isKeyEnabled = true;
       });
     tween.start();
   }

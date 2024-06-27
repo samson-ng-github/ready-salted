@@ -36,15 +36,15 @@ export default class Model {
     );
   }
 
-  moveX(value) {
+  set x(value) {
     this.model.position.x = value;
   }
 
-  moveY(value) {
+  set y(value) {
     this.model.position.y = value;
   }
 
-  moveZ(value) {
+  set z(value) {
     this.model.position.z = value;
   }
 
